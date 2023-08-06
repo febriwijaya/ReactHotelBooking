@@ -1,12 +1,15 @@
 import React, { Component } from "react";
+
 import propTypes from "prop-types";
+
+import Button from "elements/Button";
+// import { InputNumber, InputDate } from "elements/Form";
 import InputNumber from "elements/Form/inputNumber";
-import Date from "elements/Form/inputDate";
+import InputDate from "elements/Form/inputDate";
 
 export default class BookingForm extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       data: {
         duration: 1,
@@ -31,12 +34,12 @@ export default class BookingForm extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { data } = this.state;
+
     if (prevState.data.date !== data.date) {
       const startDate = new Date(data.date.startDate);
       const endDate = new Date(data.date.endDate);
       const countDuration = new Date(endDate - startDate).getDate();
-
-      this.state({
+      this.setState({
         data: {
           ...this.state.data,
           duration: countDuration,
@@ -67,7 +70,7 @@ export default class BookingForm extends Component {
     const { itemDetails, startBooking } = this.props;
 
     return (
-      <div className="card bordered" style={{ padding: "60px 80px " }}>
+      <div className="card bordered" style={{ padding: "60px 80px" }}>
         <h4 className="mb-3">Start Booking</h4>
         <h5 className="h2 text-teal mb-4">
           ${itemDetails.price}{" "}
@@ -87,13 +90,13 @@ export default class BookingForm extends Component {
         />
 
         <label htmlFor="date">Pick a date</label>
-        <Date onChange={this.updateData} name="date" value={data.date} />
+        <InputDate onChange={this.updateData} name="date" value={data.date} />
 
         <h6
           className="text-gray-500 font-weight-light"
           style={{ marginBottom: 40 }}
         >
-          You will pay{" "}
+          You Will pay{" "}
           <span className="text-gray-900">
             ${itemDetails.price * data.duration} USD
           </span>{" "}
